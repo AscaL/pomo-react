@@ -1,9 +1,6 @@
 import React from 'react';
 
-function ResetTimerButton({ children, onResetTimer }) {
-  console.log('onResetTimer', onResetTimer);
-  console.log('children', children);
-
+function ResetTimerButton({ onResetTimer }) {
   return (
     <button type="button" onClick={onResetTimer}>
       resetTimer!
@@ -21,9 +18,8 @@ function TimerHeader() {
   );
 }
 
-function TimeCounter({ children, props }) {
-  console.log('TimeCounter props: ', props);
-  console.log('TimeCounter children: ', children);
+function TimerCounter({ props }) {
+  console.log('TimerCounter props: ', props);
   return (
     <p>
       {props.minutes * props.seconds}
@@ -54,7 +50,7 @@ export default function Timer(props) {
   return (
     <div>
       <TimerHeader />
-      <TimeCounter props={props} />
+      <TimerCounter props={props} />
       <StartTimerButton onStartTimer={props.onStartTimer} />
       <StopTimerButton onStopTimer={props.onStopTimer} />
       <ResetTimerButton onResetTimer={props.onResetTimer} />
