@@ -1,13 +1,5 @@
 import React from 'react';
 
-function ResetTimerButton({ onResetTimer }) {
-  return (
-    <button type="button" onClick={onResetTimer}>
-      resetTimer!
-    </button>
-  );
-}
-
 function TimerHeader() {
   return (
     <div>
@@ -18,11 +10,29 @@ function TimerHeader() {
   );
 }
 
+function displayTime(timeInSeconds) {
+  // need better way to display
+  console.log('timeInSeconds', timeInSeconds);
+  if (timeInSeconds % 60 === 0) {
+    return timeInSeconds / 60;
+  } else {
+    const minutes = timeInSeconds / 60;
+    console.log('minutes', minutes);
+    const seconds = timeInSeconds % 60;
+    console.log('seconds', seconds);
+    return minutes.toFixed(0) + ' : ' + seconds;
+  }
+}
+
 function TimerCounter({ props }) {
+  // need better way to display
   console.log('TimerCounter props: ', props);
+  const minutesInSeconds = (props.minutes - 1) * 60;
+  const timeInSeconds = minutesInSeconds + props.seconds;
   return (
     <p>
-      {props.minutes * props.seconds}
+      {displayTime(timeInSeconds)}
+
     </p>
   );
 }
@@ -30,7 +40,7 @@ function TimerCounter({ props }) {
 function StartTimerButton({ onStartTimer }) {
   return (
     <button type="button" onClick={onStartTimer}>
-      startTimer!
+      Start Timer
     </button>
   );
 }
@@ -38,15 +48,21 @@ function StartTimerButton({ onStartTimer }) {
 function StopTimerButton({ onStopTimer }) {
   return (
     <button type="button" onClick={onStopTimer}>
-      StopTimer!
+      Stop Timer
+    </button>
+  );
+}
+
+function ResetTimerButton({ onResetTimer }) {
+  return (
+    <button type="button" onClick={onResetTimer}>
+      Reset Timer
     </button>
   );
 }
 
 // is it correct to pass props like this?
 export default function Timer(props) {
-  console.log('props:', props);
-
   return (
     <div>
       <TimerHeader />

@@ -15,15 +15,6 @@ export default class TimerContainer extends Component {
     };
   }
 
-  componentDidMount() {
-    console.log('comp did mounts');
-    const intervalID = setInterval(
-      this.decrementTimer /*(this.state.minutes)*/,
-      1000
-    );
-    console.log('intervalID', intervalID);
-  }
-
   componentWillUnmount() {
     console.log('comp will unmount');
     clearInterval(this.state.intervalID);
@@ -31,36 +22,34 @@ export default class TimerContainer extends Component {
 
   handleStartTimer(e) {
     e.preventDefault();
-
-    const intervalID = setInterval(this.decrementTimer(this.state.minutes), 10);
-    // console.log('intervalID', intervalID);
-    // TODO: function that starts the timer and decrements it
+    clearInterval(this.state.intervalID);
+    const intervalID = setInterval(this.decrementTimer, 1000);
+    this.setState({
+      intervalID,
+    });
   }
 
   handleStopTimer(e) {
     e.preventDefault();
-    // TODO: function that stops the timer
-    this.setState({
-      minutes: 20,
-      seconds: 60,
-    });
+    console.log(this.state.intervalID);
+    clearInterval(this.state.intervalID);
   }
 
   handleResetTimer(e) {
     e.preventDefault();
+    clearInterval(this.state.intervalID);
     this.setState({
       minutes: 25,
       seconds: 60,
     });
   }
 
-  decrementTimer(/*currentTimer*/) {
-    console.log('decrementTimer');
-    console.log('state min', this.state.minutes);
-    // console.log('currteim ', currentTimer);
+  decrementTimer() {
+    console.log('state minutes:', this.state.minutes);
+    console.log('state seconds:', this.state.seconds);
 
     this.setState({
-      minutes: this.state.minutes - 1,
+      seconds: this.state.seconds - 1,
     });
   }
 
