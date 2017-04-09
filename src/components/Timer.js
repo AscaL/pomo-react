@@ -13,6 +13,10 @@ function TimerHeader() {
 function displayTime(timeInSeconds) {
   // need better way to display
   console.log('timeInSeconds', timeInSeconds);
+  if (timeInSeconds === 0) {
+    // add way to comunicate that time is ended
+    console.log('timer ended');
+  }
   if (timeInSeconds % 60 === 0) {
     return timeInSeconds / 60;
   } else {
@@ -27,7 +31,7 @@ function displayTime(timeInSeconds) {
 function TimerCounter({ props }) {
   // need better way to display
   console.log('TimerCounter props: ', props);
-  const minutesInSeconds = (props.minutes - 1) * 60;
+  const minutesInSeconds = props.minutes * 60;
   console.log('minutesInSeconds', minutesInSeconds);
   const timeInSeconds = minutesInSeconds + props.seconds;
   console.log('timeInSeconds', timeInSeconds);
@@ -36,6 +40,22 @@ function TimerCounter({ props }) {
       {displayTime(timeInSeconds)}
 
     </p>
+  );
+}
+
+function StartSmallBreakButton({ onStartSmallBreak }) {
+  return (
+    <button type="button" onClick={onStartSmallBreak}>
+      Start Small Break
+    </button>
+  );
+}
+
+function StartLongBreakButton({ onStartLongBreak }) {
+  return (
+    <button type="button" onClick={onStartLongBreak}>
+      Start Long Break
+    </button>
   );
 }
 
@@ -72,6 +92,8 @@ export default function Timer(props) {
       <StartTimerButton onStartTimer={props.onStartTimer} />
       <StopTimerButton onStopTimer={props.onStopTimer} />
       <ResetTimerButton onResetTimer={props.onResetTimer} />
+      <StartSmallBreakButton onStartSmallBreak={props.onStartSmallBreak} />
+      <StartLongBreakButton onStartLongBreak={props.onStartLongBreak} />
     </div>
   );
 }

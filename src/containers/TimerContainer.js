@@ -7,9 +7,12 @@ export default class TimerContainer extends Component {
     this.handleStartTimer = this.handleStartTimer.bind(this);
     this.handleStopTimer = this.handleStopTimer.bind(this);
     this.handleResetTimer = this.handleResetTimer.bind(this);
+    this.handleStartSmallBreak = this.handleStartSmallBreak.bind(this);
+    this.handleStartLongBreak = this.handleStartLongBreak.bind(this);
     this.decrementTimer = this.decrementTimer.bind(this);
+    this.setMinutesSeconds = this.setMinutesSeconds.bind(this);
     this.state = {
-      minutes: 25,
+      minutes: 24,
       seconds: 60,
       intervalID: 0,
     };
@@ -38,9 +41,26 @@ export default class TimerContainer extends Component {
   handleResetTimer(e) {
     e.preventDefault();
     clearInterval(this.state.intervalID);
+    this.setMinutesSeconds(24, 60);
+  }
+
+  handleStartSmallBreak(e) {
+    e.preventDefault();
+    clearInterval(this.state.intervalID);
+    this.setMinutesSeconds(4, 60);
+    const intervalID = setInterval(this.decrementTimer, 1000);
     this.setState({
-      minutes: 25,
-      seconds: 60,
+      intervalID,
+    });
+  }
+
+  handleStartLongBreak(e) {
+    e.preventDefault();
+    clearInterval(this.state.intervalID);
+    this.setMinutesSeconds(9, 60);
+    const intervalID = setInterval(this.decrementTimer, 1000);
+    this.setState({
+      intervalID,
     });
   }
 
@@ -53,12 +73,21 @@ export default class TimerContainer extends Component {
     });
   }
 
+  setMinutesSeconds(minutes, seconds) {
+    this.setState({
+      minutes,
+      seconds,
+    });
+  }
+
   render() {
     return (
       <Timer
         onStartTimer={this.handleStartTimer}
         onStopTimer={this.handleStopTimer}
         onResetTimer={this.handleResetTimer}
+        onStartSmallBreak={this.handleStartSmallBreak}
+        onStartLongBreak={this.handleStartLongBreak}
         minutes={this.state.minutes}
         seconds={this.state.seconds}
       />
