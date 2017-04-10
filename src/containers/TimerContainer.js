@@ -23,6 +23,22 @@ export default class TimerContainer extends Component {
     clearInterval(this.state.intervalID);
   }
 
+  setMinutesSeconds(minutes, seconds) {
+    this.setState({
+      minutes,
+      seconds,
+    });
+  }
+
+  decrementTimer() {
+    console.log('state minutes:', this.state.minutes);
+    console.log('state seconds:', this.state.seconds);
+
+    this.setState({
+      seconds: this.state.seconds - 1,
+    });
+  }
+
   handleStartTimer(e) {
     e.preventDefault();
     clearInterval(this.state.intervalID);
@@ -61,22 +77,6 @@ export default class TimerContainer extends Component {
     const intervalID = setInterval(this.decrementTimer, 1000);
     this.setState({
       intervalID,
-    });
-  }
-
-  decrementTimer() {
-    console.log('state minutes:', this.state.minutes);
-    console.log('state seconds:', this.state.seconds);
-
-    this.setState({
-      seconds: this.state.seconds - 1,
-    });
-  }
-
-  setMinutesSeconds(minutes, seconds) {
-    this.setState({
-      minutes,
-      seconds,
     });
   }
 
