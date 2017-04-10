@@ -1,12 +1,18 @@
 import React from 'react';
+import {
+  PageHeader,
+  Button,
+  ButtonGroup,
+  ButtonToolbar,
+} from 'react-bootstrap';
 
 function TimerHeader() {
   return (
-    <div>
+    <PageHeader>
       <h1>
         Pomodoro Timer
       </h1>
-    </div>
+    </PageHeader>
   );
 }
 
@@ -45,41 +51,41 @@ function TimerCounter({ props }) {
 
 function StartSmallBreakButton({ onStartSmallBreak }) {
   return (
-    <button type="button" onClick={onStartSmallBreak}>
+    <Button bsStyle="info" onClick={onStartSmallBreak}>
       Start Small Break
-    </button>
+    </Button>
   );
 }
 
 function StartLongBreakButton({ onStartLongBreak }) {
   return (
-    <button type="button" onClick={onStartLongBreak}>
+    <Button bsStyle="info" onClick={onStartLongBreak}>
       Start Long Break
-    </button>
+    </Button>
   );
 }
 
 function StartTimerButton({ onStartTimer }) {
   return (
-    <button type="button" onClick={onStartTimer}>
+    <Button bsStyle="success" onClick={onStartTimer}>
       Start Timer
-    </button>
+    </Button>
   );
 }
 
 function StopTimerButton({ onStopTimer }) {
   return (
-    <button type="button" onClick={onStopTimer}>
+    <Button bsStyle="warning" onClick={onStopTimer}>
       Stop Timer
-    </button>
+    </Button>
   );
 }
 
 function ResetTimerButton({ onResetTimer }) {
   return (
-    <button type="button" onClick={onResetTimer}>
+    <Button bsStyle="danger" onClick={onResetTimer}>
       Reset Timer
-    </button>
+    </Button>
   );
 }
 
@@ -89,11 +95,17 @@ export default function Timer(props) {
     <div>
       <TimerHeader />
       <TimerCounter props={props} />
-      <StartTimerButton onStartTimer={props.onStartTimer} />
-      <StopTimerButton onStopTimer={props.onStopTimer} />
-      <ResetTimerButton onResetTimer={props.onResetTimer} />
-      <StartSmallBreakButton onStartSmallBreak={props.onStartSmallBreak} />
-      <StartLongBreakButton onStartLongBreak={props.onStartLongBreak} />
+      <ButtonToolbar>
+        <ButtonGroup vertical>
+          <StartTimerButton onStartTimer={props.onStartTimer} />
+          <StopTimerButton onStopTimer={props.onStopTimer} />
+          <ResetTimerButton onResetTimer={props.onResetTimer} />
+        </ButtonGroup>
+        <ButtonGroup vertical>
+          <StartSmallBreakButton onStartSmallBreak={props.onStartSmallBreak} />
+          <StartLongBreakButton onStartLongBreak={props.onStartLongBreak} />
+        </ButtonGroup>
+      </ButtonToolbar>
     </div>
   );
 }
