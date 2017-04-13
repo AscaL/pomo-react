@@ -4,14 +4,13 @@ import {
   Button,
   ButtonGroup,
   ButtonToolbar,
+  Pager,
 } from 'react-bootstrap';
 
 function TimerHeader() {
   return (
     <PageHeader>
-      <h1>
-        Pomodoro Timer
-      </h1>
+      Pomodoro Timer
     </PageHeader>
   );
 }
@@ -24,19 +23,18 @@ function displayTime(timeInSeconds) {
     console.log('timer ended');
   }
   if (timeInSeconds % 60 === 0) {
-    return timeInSeconds / 60;
+    return `${timeInSeconds / 60}:00`;
   } else {
     const minutes = Math.floor(timeInSeconds / 60);
     console.log('minutes', minutes);
     const seconds = timeInSeconds % 60;
     console.log('seconds', seconds);
-    return minutes.toFixed(0) + ' : ' + seconds;
+    return `${minutes.toFixed(0)}:${seconds}`;
   }
 }
 
 function TimerCounter({ props }) {
   // need better way to display
-  console.log('TimerCounter props: ', props);
   const minutesInSeconds = props.minutes * 60;
   console.log('minutesInSeconds', minutesInSeconds);
   const timeInSeconds = minutesInSeconds + props.seconds;
@@ -44,24 +42,7 @@ function TimerCounter({ props }) {
   return (
     <p>
       {displayTime(timeInSeconds)}
-
     </p>
-  );
-}
-
-function StartSmallBreakButton({ onStartSmallBreak }) {
-  return (
-    <Button bsStyle="info" onClick={onStartSmallBreak}>
-      Start Small Break
-    </Button>
-  );
-}
-
-function StartLongBreakButton({ onStartLongBreak }) {
-  return (
-    <Button bsStyle="info" onClick={onStartLongBreak}>
-      Start Long Break
-    </Button>
   );
 }
 
@@ -88,6 +69,21 @@ function ResetTimerButton({ onResetTimer }) {
     </Button>
   );
 }
+function StartSmallBreakButton({ onStartSmallBreak }) {
+  return (
+    <Button bsStyle="info" onClick={onStartSmallBreak}>
+      Start Small Break
+    </Button>
+  );
+}
+
+function StartLongBreakButton({ onStartLongBreak }) {
+  return (
+    <Button bsStyle="info" onClick={onStartLongBreak}>
+      Start Long Break
+    </Button>
+  );
+}
 
 // is it correct to pass props like this?
 export default function Timer(props) {
@@ -96,14 +92,18 @@ export default function Timer(props) {
       <TimerHeader />
       <TimerCounter props={props} />
       <ButtonToolbar>
-        <ButtonGroup vertical>
+        <Pager>
           <StartTimerButton onStartTimer={props.onStartTimer} />
           <StopTimerButton onStopTimer={props.onStopTimer} />
           <ResetTimerButton onResetTimer={props.onResetTimer} />
-        </ButtonGroup>
-        <ButtonGroup vertical>
-          <StartSmallBreakButton onStartSmallBreak={props.onStartSmallBreak} />
-          <StartLongBreakButton onStartLongBreak={props.onStartLongBreak} />
+        </Pager>
+        <ButtonGroup>
+          <Pager>
+            <StartSmallBreakButton
+              onStartSmallBreak={props.onStartSmallBreak}
+            />
+            <StartLongBreakButton onStartLongBreak={props.onStartLongBreak} />
+          </Pager>
         </ButtonGroup>
       </ButtonToolbar>
     </div>

@@ -18,11 +18,6 @@ export default class TimerContainer extends Component {
     };
   }
 
-  componentWillUnmount() {
-    console.log('comp will unmount');
-    clearInterval(this.state.intervalID);
-  }
-
   setMinutesSeconds(minutes, seconds) {
     this.setState({
       minutes,
@@ -31,12 +26,14 @@ export default class TimerContainer extends Component {
   }
 
   decrementTimer() {
-    console.log('state minutes:', this.state.minutes);
-    console.log('state seconds:', this.state.seconds);
-
-    this.setState({
-      seconds: this.state.seconds - 1,
-    });
+    if (this.state.minutes === 0 && this.state.seconds === 0) {
+      clearInterval(this.state.intervalID);
+      this.setMinutesSeconds(this.state.minutes, this.state.seconds);
+    } else {
+      this.setState({
+        seconds: this.state.seconds - 1,
+      });
+    }
   }
 
   handleStartTimer(e) {
@@ -50,7 +47,6 @@ export default class TimerContainer extends Component {
 
   handleStopTimer(e) {
     e.preventDefault();
-    console.log(this.state.intervalID);
     clearInterval(this.state.intervalID);
   }
 
@@ -63,7 +59,7 @@ export default class TimerContainer extends Component {
   handleStartSmallBreak(e) {
     e.preventDefault();
     clearInterval(this.state.intervalID);
-    this.setMinutesSeconds(4, 60);
+    this.setMinutesSeconds(0, 5);
     const intervalID = setInterval(this.decrementTimer, 1000);
     this.setState({
       intervalID,
