@@ -29,10 +29,10 @@ export default class TimerContainer extends Component {
     if (this.state.minutes === 0 && this.state.seconds === 0) {
       clearInterval(this.state.intervalID);
       this.setMinutesSeconds(this.state.minutes, this.state.seconds);
+    } else if (this.state.seconds === 0) {
+      this.setMinutesSeconds(this.state.minutes - 1, 59);
     } else {
-      this.setState({
-        seconds: this.state.seconds - 1,
-      });
+      this.setMinutesSeconds(this.state.minutes, this.state.seconds - 1);
     }
   }
 
@@ -59,7 +59,7 @@ export default class TimerContainer extends Component {
   handleStartSmallBreak(e) {
     e.preventDefault();
     clearInterval(this.state.intervalID);
-    this.setMinutesSeconds(0, 5);
+    this.setMinutesSeconds(4, 60);
     const intervalID = setInterval(this.decrementTimer, 1000);
     this.setState({
       intervalID,

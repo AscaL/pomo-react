@@ -5,6 +5,7 @@ import {
   ButtonGroup,
   ButtonToolbar,
   Pager,
+  Alert,
 } from 'react-bootstrap';
 
 function TimerHeader() {
@@ -15,34 +16,27 @@ function TimerHeader() {
   );
 }
 
+// TODO: function is way too long need to component it
 function displayTime(timeInSeconds) {
-  // need better way to display
-  console.log('timeInSeconds', timeInSeconds);
   if (timeInSeconds === 0) {
-    // add way to comunicate that time is ended
-    console.log('timer ended');
+    return <Alert bsStyle="success">GOGO</Alert>;
   }
   if (timeInSeconds % 60 === 0) {
     return `${timeInSeconds / 60}:00`;
-  } else {
-    const minutes = Math.floor(timeInSeconds / 60);
-    console.log('minutes', minutes);
-    const seconds = timeInSeconds % 60;
-    console.log('seconds', seconds);
-    return `${minutes.toFixed(0)}:${seconds}`;
   }
+  const minutes = Math.floor(timeInSeconds / 60);
+  const seconds = timeInSeconds % 60;
+  return `${minutes.toFixed(0)}:${seconds}`;
 }
 
 function TimerCounter({ props }) {
-  // need better way to display
+  console.log('min, sec: ', props.minutes, props.seconds);
   const minutesInSeconds = props.minutes * 60;
-  console.log('minutesInSeconds', minutesInSeconds);
   const timeInSeconds = minutesInSeconds + props.seconds;
-  console.log('timeInSeconds', timeInSeconds);
   return (
-    <p>
+    <div>
       {displayTime(timeInSeconds)}
-    </p>
+    </div>
   );
 }
 
