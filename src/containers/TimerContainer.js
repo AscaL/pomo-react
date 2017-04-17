@@ -7,6 +7,7 @@ export default class TimerContainer extends Component {
     this.handleStartTimer = this.handleStartTimer.bind(this);
     this.handleStopTimer = this.handleStopTimer.bind(this);
     this.handleResetTimer = this.handleResetTimer.bind(this);
+    this.handleRestartPomodoro = this.handleRestartPomodoro.bind(this);
     this.handleStartSmallBreak = this.handleStartSmallBreak.bind(this);
     this.handleStartLongBreak = this.handleStartLongBreak.bind(this);
     this.decrementTimer = this.decrementTimer.bind(this);
@@ -56,6 +57,16 @@ export default class TimerContainer extends Component {
     this.setMinutesSeconds(24, 60);
   }
 
+  handleRestartPomodoro(e) {
+    e.preventDefault();
+    clearInterval(this.state.intervalID);
+    this.setMinutesSeconds(24, 60);
+    const intervalID = setInterval(this.decrementTimer, 1000);
+    this.setState({
+      intervalID,
+    });
+  }
+
   handleStartSmallBreak(e) {
     e.preventDefault();
     clearInterval(this.state.intervalID);
@@ -82,6 +93,7 @@ export default class TimerContainer extends Component {
         onStartTimer={this.handleStartTimer}
         onStopTimer={this.handleStopTimer}
         onResetTimer={this.handleResetTimer}
+        onRestartPomodoro={this.handleRestartPomodoro}
         onStartSmallBreak={this.handleStartSmallBreak}
         onStartLongBreak={this.handleStartLongBreak}
         minutes={this.state.minutes}

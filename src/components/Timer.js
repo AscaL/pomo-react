@@ -63,6 +63,15 @@ function ResetTimerButton({ onResetTimer }) {
     </Button>
   );
 }
+
+function RestartPomodoroButton({ onRestartPomodoro }) {
+  return (
+    <Button bsStyle="info" onClick={onRestartPomodoro}>
+      Restart Pomodoro
+    </Button>
+  );
+}
+
 function StartSmallBreakButton({ onStartSmallBreak }) {
   return (
     <Button bsStyle="info" onClick={onStartSmallBreak}>
@@ -93,6 +102,9 @@ export default function Timer(props) {
         </Pager>
         <ButtonGroup>
           <Pager>
+            <RestartPomodoroButton
+              onRestartPomodoro={props.onRestartPomodoro}
+            />
             <StartSmallBreakButton
               onStartSmallBreak={props.onStartSmallBreak}
             />
