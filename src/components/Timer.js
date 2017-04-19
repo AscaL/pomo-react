@@ -6,6 +6,7 @@ import {
   ButtonToolbar,
   Pager,
   Alert,
+  ProgressBar,
 } from 'react-bootstrap';
 
 function TimerHeader() {
@@ -37,6 +38,22 @@ function TimerCounter({ props }) {
     <div>
       {displayTime(timeInSeconds)}
     </div>
+  );
+}
+
+function TimerProgressBar({ props }) {
+  const minutesInSeconds = props.minutes * 60;
+  const timeInSeconds = minutesInSeconds + props.seconds;
+  const onePercent = 1500 / 100;
+  const percentage = Math.floor(timeInSeconds / onePercent);
+
+  return (
+    <ProgressBar
+      bsStyle="success"
+      now={100 - percentage}
+      label={`${100 - percentage}%`}
+      active
+    />
   );
 }
 
@@ -94,6 +111,7 @@ export default function Timer(props) {
     <div>
       <TimerHeader />
       <TimerCounter props={props} />
+      <TimerProgressBar props={props} />
       <ButtonToolbar>
         <Pager>
           <StartTimerButton onStartTimer={props.onStartTimer} />
