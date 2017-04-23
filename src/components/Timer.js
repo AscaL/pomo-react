@@ -48,12 +48,7 @@ function TimerProgressBar({ props }) {
   const percentage = Math.floor(timeInSeconds / onePercent);
 
   return (
-    <ProgressBar
-      bsStyle="success"
-      now={100 - percentage}
-      label={`${100 - percentage}%`}
-      active
-    />
+    <ProgressBar bsStyle="success" now={100 - percentage} label={`${100 - percentage}%`} active />
   );
 }
 
@@ -120,12 +115,8 @@ export default function Timer(props) {
         </Pager>
         <ButtonGroup>
           <Pager>
-            <RestartPomodoroButton
-              onRestartPomodoro={props.onRestartPomodoro}
-            />
-            <StartSmallBreakButton
-              onStartSmallBreak={props.onStartSmallBreak}
-            />
+            <RestartPomodoroButton onRestartPomodoro={props.onRestartPomodoro} />
+            <StartSmallBreakButton onStartSmallBreak={props.onStartSmallBreak} />
             <StartLongBreakButton onStartLongBreak={props.onStartLongBreak} />
           </Pager>
         </ButtonGroup>

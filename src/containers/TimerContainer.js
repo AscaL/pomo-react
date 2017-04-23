@@ -37,8 +37,7 @@ export default class TimerContainer extends Component {
     }
   }
 
-  handleStartTimer(e) {
-    e.preventDefault();
+  handleStartTimer() {
     clearInterval(this.state.intervalID);
     const intervalID = setInterval(this.decrementTimer, 1000);
     this.setState({
@@ -46,19 +45,16 @@ export default class TimerContainer extends Component {
     });
   }
 
-  handleStopTimer(e) {
-    e.preventDefault();
+  handleStopTimer() {
     clearInterval(this.state.intervalID);
   }
 
-  handleResetTimer(e) {
-    e.preventDefault();
+  handleResetTimer() {
     clearInterval(this.state.intervalID);
     this.setMinutesSeconds(24, 60);
   }
 
-  handleRestartPomodoro(e) {
-    e.preventDefault();
+  handleRestartPomodoro() {
     clearInterval(this.state.intervalID);
     this.setMinutesSeconds(24, 60);
     const intervalID = setInterval(this.decrementTimer, 1000);
@@ -67,8 +63,7 @@ export default class TimerContainer extends Component {
     });
   }
 
-  handleStartSmallBreak(e) {
-    e.preventDefault();
+  handleStartSmallBreak() {
     clearInterval(this.state.intervalID);
     this.setMinutesSeconds(4, 60);
     const intervalID = setInterval(this.decrementTimer, 1000);
@@ -77,8 +72,7 @@ export default class TimerContainer extends Component {
     });
   }
 
-  handleStartLongBreak(e) {
-    e.preventDefault();
+  handleStartLongBreak() {
     clearInterval(this.state.intervalID);
     this.setMinutesSeconds(9, 60);
     const intervalID = setInterval(this.decrementTimer, 1000);
