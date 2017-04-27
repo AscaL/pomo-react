@@ -27,7 +27,7 @@ function displayTime(timeInSeconds) {
   }
   const minutes = Math.floor(timeInSeconds / 60);
   const seconds = timeInSeconds % 60;
-  return `${minutes.toFixed(0)}:${seconds}`;
+  return seconds < 10 ? `${minutes.toFixed(0)}:0${seconds}` : `${minutes.toFixed(0)}:${seconds}`;
 }
 
 function TimerCounter({ props }) {
@@ -36,7 +36,7 @@ function TimerCounter({ props }) {
   const timeInSeconds = minutesInSeconds + props.seconds;
   return (
     <div>
-      {displayTime(timeInSeconds)}
+      <h2>{displayTime(timeInSeconds)}</h2>
     </div>
   );
 }
