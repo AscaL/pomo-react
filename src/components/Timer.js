@@ -31,7 +31,6 @@ function displayTime(timeInSeconds) {
 }
 
 function TimerCounter({ props }) {
-  console.log('min, sec: ', props.minutes, props.seconds);
   const minutesInSeconds = props.minutes * 60;
   const timeInSeconds = minutesInSeconds + props.seconds;
   return (
