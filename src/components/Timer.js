@@ -9,18 +9,24 @@ import {
   ProgressBar,
 } from 'react-bootstrap';
 
-function TimerHeader() {
-  return (
-    <PageHeader>
-      Pomodoro Timer
-    </PageHeader>
-  );
+function notifyOnTimerOver() {
+  if (!Notification) {
+    alert('Desktop notifications not available in your browser. Try Chromium.');
+    return;
+  }
+  if (Notification.permission !== 'granted') Notification.requestPermission();
+  else {
+    const notification = new Notification('Timer is OVER!', {
+      icon: 'http://ob9oayzh3.bkt.clouddn.com/images.png',
+      body: 'Timer is Over!',
+    });
+  }
 }
 
-// TODO: function is way too long need to component it
 function displayTime(timeInSeconds) {
   if (timeInSeconds === 0) {
-    return <Alert bsStyle="success">GOGO</Alert>;
+    notifyOnTimerOver();
+    return <Alert bsStyle="success">Go Take a Break!</Alert>;
   }
   if (timeInSeconds % 60 === 0) {
     return `${timeInSeconds / 60}:00`;
@@ -28,6 +34,14 @@ function displayTime(timeInSeconds) {
   const minutes = Math.floor(timeInSeconds / 60);
   const seconds = timeInSeconds % 60;
   return seconds < 10 ? `${minutes.toFixed(0)}:0${seconds}` : `${minutes.toFixed(0)}:${seconds}`;
+}
+
+function TimerHeader() {
+  return (
+    <PageHeader>
+      Pomodoro Timer
+    </PageHeader>
+  );
 }
 
 function TimerCounter({ props }) {
